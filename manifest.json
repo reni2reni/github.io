@@ -3,6 +3,6 @@
   "name": "BF6 POPUP",
   "version": "0.1.1",
   "description": "Adds Copy and Paste block support for BF6",
-  "main": "POPUP.js",
+  "main": "POPUP.HTML",
   "author": "reni2reni"
 }
