@@ -1,8 +1,0 @@
-{
-  "id": "bf-portal-POPUP-plugin",
-  "name": "BF6 POPUP",
-  "version": "0.1.1",
-  "description": "Adds Copy and Paste block support for BF6",
-  "main": "POPUP.HTML",
-  "author": "reni2reni"
-}
