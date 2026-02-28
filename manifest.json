@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Multi-Code Stocker",
+  "version": "1.1",
+  "permissions": ["storage", "clipboardWrite"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
