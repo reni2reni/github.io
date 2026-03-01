@@ -8,29 +8,27 @@ export default class MyStockerPlugin {
         this.helper = helper;
         console.log(`${this.name} initialized.`);
 
-        // ワークスペース（背景）用
-        this.helper.registerWorkspaceContextMenu((options) => {
-            console.log("Workspace context menu opened."); // デバッグ用
-            options.push({
-                text: "★ ストッカー: テスト",
-                enabled: true,
-                callback: () => alert("動作OK!")
+        // 1秒待ってからメニューを登録（エディタの準備待ち）
+        setTimeout(() => {
+            // ワークスペース右クリック
+            this.helper.registerWorkspaceContextMenu((options) => {
+                console.log("Adding workspace menu item...");
+                options.push({
+                    text: "★ ストッカーを開く",
+                    enabled: true,
+                    callback: () => alert("プラグイン動作中")
+                });
             });
-        });
 
-        // ブロック用
-        this.helper.registerBlockContextMenu((options, block) => {
-            options.push({
-                text: "★ このブロックをJSONで出力",
-                enabled: true,
-                callback: () => {
-                    // ここでJSON変換のテスト
-                    const xml = Blockly.Xml.blockToDom(block);
-                    const xmlText = Blockly.Xml.domToPrettyText(xml);
-                    console.log("Block XML:", xmlText);
-                    alert("コンソールにXML(JSONの元)を出力しました");
-                }
+            // ブロック右クリック
+            this.helper.registerBlockContextMenu((options, block) => {
+                options.push({
+                    text: "★ このブロックを保存",
+                    enabled: true,
+                    callback: () => console.log("Selected block:", block)
+                });
             });
-        });
+            console.log(`${this.name} context menus registered.`);
+        }, 1000);
     }
 }
