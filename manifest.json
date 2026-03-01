@@ -1,8 +1,0 @@
-{
-  "id": "bf-portal-Stocke-plugin",
-  "name": "BF6 Stocke",
-  "version": "0.1.4",
-  "description": "Multi-Code Stocker for BF6",
-  "main": "index.js",
-  "author": "reni2"
-}
