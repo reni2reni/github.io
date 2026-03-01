@@ -4,49 +4,51 @@ export default class MyStockerPlugin {
         this.name = "Block Stocker";
     }
 
-    // フレームワークから呼ばれる初期化メソッド
     init(helper) {
         this.helper = helper;
-        console.log(`[${this.name}] プラグインを初期化中...`);
+        console.log(`[${this.name}] Initializing with Direct Blockly API...`);
 
-        // 重要: エディタ(Blockly)のロード完了を待つために少し遅延させる
-        setTimeout(() => {
-            this.setupMenus();
-        }, 2000); 
+        // Blocklyがロードされるまで最大10秒待機
+        const checkBlockly = setInterval(() => {
+            if (typeof Blockly !== 'undefined' && Blockly.ContextMenuRegistry) {
+                clearInterval(checkBlockly);
+                this.registerDirectMenus();
+            }
+        }, 1000);
     }
 
-    setupMenus() {
-        // ワークスペース（背景）の右クリックメニュー
-        this.helper.registerWorkspaceContextMenu((options) => {
-            options.push({
-                text: "★ ストッカーを確認",
-                enabled: true,
-                callback: () => {
-                    alert("ストッカープラグインは正常に動作しています！");
-                }
-            });
-        });
+    registerDirectMenus() {
+        // 1. ワークスペース（背景）用メニュー項目の定義
+        const stockerOption = {
+            displayText: "★ ストッカー: JSON保存",
+            preconditionFn: () => "enabled", // 常に有効
+            callback: (scope) => {
+                alert("ストッカー機能が呼び出されました");
+            },
+            scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
+            id: "my_stocker_workspace_item",
+            weight: 100 // メニュー内での表示順位（大きいほど下）
+        };
 
-        // ブロックの右クリックメニュー
-        this.helper.registerBlockContextMenu((options, block) => {
-            options.push({
-                text: "★ このブロックをJSON保存",
-                enabled: true,
-                callback: () => {
-                    try {
-                        // Blocklyの標準メソッドでブロックをXML(JSONの元)に変換
-                        const xml = Blockly.Xml.blockToDom(block);
-                        const text = Blockly.Xml.domToPrettyText(xml);
-                        console.log("Selected Block Data:", text);
-                        alert("コンソールにブロックデータを出力しました。");
-                    } catch (e) {
-                        console.error("変換エラー:", e);
-                        alert("エラー: ブロックデータの取得に失敗しました。");
-                    }
-                }
-            });
-        });
+        // 2. ブロック用メニュー項目の定義
+        const blockStockerOption = {
+            displayText: "★ このブロックをJSON保存",
+            preconditionFn: () => "enabled",
+            callback: (scope) => {
+                const block = scope.block;
+                const xml = Blockly.Xml.blockToDom(block);
+                console.log("Block JSON:", Blockly.Xml.domToPrettyText(xml));
+                alert("コンソールにJSONを出力しました");
+            },
+            scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+            id: "my_stocker_block_item",
+            weight: 100
+        };
 
-        console.log(`[${this.name}] メニューの登録が完了しました。`);
+        // Blockly本体に登録
+        Blockly.ContextMenuRegistry.registry.register(stockerOption);
+        Blockly.ContextMenuRegistry.registry.register(blockStockerOption);
+
+        console.log(`[${this.name}] Direct Menus Registered!`);
     }
 }
