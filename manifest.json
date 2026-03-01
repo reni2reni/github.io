@@ -1,16 +1,9 @@
 {
-  "manifest_version": 3,
-  "name": "BF6 Portal Editor Helper",
-  "version": "1.0",
-  "description": "BF2042 Portal Block Editor Support",
-  "permissions": ["contextMenus"],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "content_scripts": [
-    {
-      "matches": ["https://portal.battlefield.com*"],
-      "js": ["content.js"]
-    }
-  ]
+  "id": "my-portal-stocker",
+  "name": "Block Stocker",
+  "version": "1.0.0",
+  "author": "YourName",
+  "description": "JSONでブロックをストックする支援ツール",
+  "main": "index.js"
 }
+
