@@ -3,7 +3,7 @@
   "name": "Block Stocker",
   "version": "1.0.0",
   "author": "YourName",
-  "description": "JSONでブロックをストックする支援ツール",
+  "description": "Block JSON Stocker",
   "main": "index.js"
 }
 
