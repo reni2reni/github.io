@@ -1,0 +1,8 @@
+{
+  "id": "bf-portal-code-stocker",
+  "name": "BF6 Code Stocker",
+  "version": "0.1.0",
+  "description": "Capture selected blocks as snippets and manage them in BF6 Portal",
+  "main": "index.js",
+  "author": "YourName"
+}
